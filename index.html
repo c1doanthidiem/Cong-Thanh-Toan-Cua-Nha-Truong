@@ -5,44 +5,52 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Thanh toán - Trường Tiểu học Đoàn Thị Điểm - Hà Nội</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    
     <style>
         :root { --primary: #0b6fb3; --bg: #f4f7fa; --text: #2d3748; }
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { margin: 0; background: var(--bg); display: flex; justify-content: center; padding: 20px; color: var(--text); }
-        .container { width: 100%; max-width: 480px; animation: fadeIn 0.6s ease; }
-        .card { background: #fff; padding: 30px; border-radius: 28px; box-shadow: 0 15px 45px rgba(11,111,179,0.15); border: 2px solid #fff; }
+        body { margin: 0; background: var(--bg); display: flex; justify-content: center; padding: 15px; color: var(--text); }
+        
+        /* 1. Nới rộng khung để tiêu đề không xuống dòng */
+        .container { width: 100%; max-width: 550px; animation: fadeIn 0.6s ease; }
+        .card { background: #fff; padding: 30px; border-radius: 28px; box-shadow: 0 15px 45px rgba(11,111,179,0.15); border: 1px solid #eee; }
 
         .header { text-align: center; margin-bottom: 25px; }
         .logo-container { width: 85px; height: 85px; margin: 0 auto 15px; border-radius: 18px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); background: #fff; }
         .logo-container img { width: 100%; height: 100%; object-fit: contain; }
 
-        h2 { color: var(--primary); font-size: 1rem; margin: 10px 0; text-transform: uppercase; font-weight: 900; letter-spacing: 0.5px; }
+        /* 2. Ép tiêu đề nằm trên 1 dòng */
+        h2 { 
+            color: var(--primary); 
+            font-size: 1.15rem; 
+            margin: 10px 0; 
+            text-transform: uppercase; 
+            font-weight: 900; 
+            white-space: nowrap; 
+            letter-spacing: -0.5px; 
+        }
         .sub-text { font-size: 14px; color: #718096; }
 
-        .form-group { margin-bottom: 20px; text-align: left; }
-        label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #4a5568; text-transform: uppercase; }
-        input, select { width: 100%; padding: 15px; border: 2px solid #edf2f7; border-radius: 16px; font-size: 16px; outline: none; background: #f8fafc; transition: 0.3s; }
-        input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(11,111,179,0.1); }
+        .form-group { margin-bottom: 18px; text-align: left; }
+        label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #4a5568; }
+        input, select { width: 100%; padding: 14px; border: 2px solid #edf2f7; border-radius: 15px; font-size: 16px; outline: none; background: #f8fafc; }
 
         /* GỢI Ý TIỀN */
         .suggestion-box { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; min-height: 35px; }
-        .sug-pill { background: #fff; color: var(--primary); padding: 7px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; border: 1.5px solid var(--primary); transition: 0.2s; }
-        .sug-pill:hover { background: var(--primary); color: white; }
+        .sug-pill { background: #fff; color: var(--primary); padding: 7px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1.5px solid var(--primary); }
 
-        .btn-main { width: 100%; background: var(--primary); color: white; padding: 18px; border: none; border-radius: 20px; font-size: 17px; font-weight: 800; cursor: pointer; margin-top: 10px; box-shadow: 0 10px 25px rgba(11,111,179,0.3); }
+        .btn-main { width: 100%; background: var(--primary); color: white; padding: 16px; border: none; border-radius: 18px; font-size: 17px; font-weight: 800; cursor: pointer; margin-top: 10px; }
 
-        #result-section { display: none; margin-top: 30px; text-align: center; }
-        .qr-wrapper { background: #fff; padding: 20px; border-radius: 25px; border: 3px solid #f1f5f9; display: inline-block; }
-        .qr-wrapper img { width: 100%; max-width: 260px; height: auto; border-radius: 15px; }
+        #result-section { display: none; margin-top: 25px; text-align: center; }
+        .qr-wrapper { background: #fff; padding: 15px; border-radius: 20px; border: 3px solid #f1f5f9; display: inline-block; }
+        .qr-wrapper img { width: 100%; max-width: 250px; border-radius: 10px; cursor: pointer; }
 
-        .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .btn-action { padding: 15px 5px; border-radius: 16px; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; border: none; text-decoration: none; transition: 0.3s; }
+        .button-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn-action { padding: 14px 5px; border-radius: 14px; font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; border: none; text-decoration: none; }
         .btn-copy-qr { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
         .btn-download { background: var(--primary); color: white; }
 
-        .note-box { margin-top: 15px; padding: 15px; background: #fdf2f2; border-radius: 15px; text-align: left; border-left: 5px solid #c53030; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .note-box { margin-top: 15px; padding: 12px; background: #fdf2f2; border-radius: 12px; text-align: left; border-left: 5px solid #c53030; }
+        @media (max-width: 480px) { h2 { font-size: 1rem; } .card { padding: 20px; } }
     </style>
 </head>
 <body>
@@ -52,7 +60,7 @@
         <div class="header">
             <div class="logo-container"><img src="logo.jpg" alt="Logo"></div>
             <h2>Trường Tiểu học Đoàn Thị Điểm - Hà Nội</h2>
-            <div class="sub-text">Cổng Thanh Toán Tiện Lợi Dành Cho Cha Mẹ Học Sinh</div>
+            <div class="sub-text">Cổng Thanh Toán Tiện Lợi Dành Cho Phụ Huynh</div>
         </div>
 
         <div class="form-group">
@@ -60,7 +68,7 @@
             <input id="fullname" type="text" placeholder="Nguyễn Văn A" oninput="formatName(this)">
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div class="form-group">
                 <label>Lớp</label>
                 <input id="class" type="text" placeholder="1A1" oninput="this.value=this.value.toUpperCase()">
@@ -80,14 +88,14 @@
         <button class="btn-main" onclick="generateQR()">TẠO MÃ THANH TOÁN <i class="fa-solid fa-magic"></i></button>
 
         <div id="result-section">
+            <p style="font-size: 12px; color: #e53e3e; font-weight: bold; margin-bottom: 10px;">Bố mẹ nhấn giữ vào ảnh QR để lưu nếu nút Tải không chạy</p>
             <div class="qr-wrapper" id="qr-container"></div>
             <div class="button-group">
                 <button onclick="copyQRImage()" class="btn-action btn-copy-qr"><i class="fa-solid fa-copy"></i> SAO CHÉP QR</button>
-                <a id="download-link" href="#" target="_blank" class="btn-action btn-download"><i class="fa-solid fa-download"></i> TẢI MÃ QR</a>
+                <button onclick="downloadQR()" class="btn-action btn-download"><i class="fa-solid fa-download"></i> TẢI MÃ QR</button>
             </div>
             <div class="note-box">
                 <p id="final-note" style="margin:0; font-size: 14px; font-weight: 800; color: #c53030;"></p>
-                <p style="font-size: 11px; color: #718096; margin-top:5px;">* Mẹo: Tải hoặc sao chép QR rồi dán trực tiếp vào App Ngân hàng.</p>
             </div>
         </div>
     </div>
@@ -95,12 +103,12 @@
 
 <script>
     const BANK = { bin: "970418", acc: "2200263666", name: "Truong Tieu hoc Doan Thi Diem" };
+    let currentQR = "";
 
     function formatName(el) {
         el.value = el.value.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
     }
 
-    // KHÔI PHỤC HÀM TỰ NHẢY TIỀN
     function handleAmountInput(el) {
         let rawVal = el.value.replace(/[^0-9]/g, '');
         el.value = rawVal.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -113,40 +121,55 @@
                     const pill = document.createElement('div');
                     pill.className = 'sug-pill';
                     pill.innerText = val.toLocaleString('vi-VN');
-                    pill.onclick = () => { 
-                        el.value = val.toLocaleString('vi-VN'); 
-                        sugBox.innerHTML = ''; 
-                    };
+                    pill.onclick = () => { el.value = val.toLocaleString('vi-VN'); sugBox.innerHTML = ''; };
                     sugBox.appendChild(pill);
                 }
             });
         }
     }
 
+    // SAO CHÉP QR - THÊM CÁCH DỰ PHÒNG
     async function copyQRImage() {
-        const img = document.querySelector('#qr-container img');
+        const img = document.querySelector('#qr-image');
         if (!img) return;
         try {
             const response = await fetch(img.src);
             const blob = await response.blob();
-            await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
-            alert("Đã sao chép QR! Bố mẹ hãy dán vào App Ngân hàng nhé! ❤️");
-        } catch (e) { alert("Trình duyệt không hỗ trợ copy nhanh. Bố mẹ hãy chọn TẢI MÃ QR nhé!"); }
+            await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+            alert("Đã sao chép QR thành công! ❤️");
+        } catch (e) {
+            alert("Trình duyệt chặn Copy. Bố mẹ hãy Nhấn Giữ vào ảnh QR chọn 'Lưu ảnh' hoặc 'Sao chép' nhé!");
+        }
+    }
+
+    // TẢI QR - MỞ TAB MỚI NẾU BỊ CHẶN
+    function downloadQR() {
+        if (!currentQR) return;
+        const link = document.createElement('a');
+        link.href = currentQR;
+        link.download = 'QR_ThanhToan.png';
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        // Backup: Nếu không thấy file tải về, thông báo cho người dùng
+        setTimeout(() => {
+            alert("Nếu máy chưa tải về, bố mẹ hãy nhấn giữ trực tiếp vào ảnh QR để lưu nhé!");
+        }, 1500);
     }
 
     function generateQR() {
         const name = document.getElementById('fullname').value.trim();
         const lop = document.getElementById('class').value.trim();
-        let amountClean = document.getElementById('amount').value.replace(/[,.]/g, ''); 
-        if(!name || !lop || !amountClean) { alert("Vui lòng điền đủ thông tin!"); return; }
+        let amount = document.getElementById('amount').value.replace(/[,.]/g, ''); 
+        if(!name || !lop || !amount) { alert("Vui lòng điền đủ thông tin!"); return; }
 
         let cleanName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toUpperCase();
         const note = `MD ${cleanName} ${lop.toUpperCase()}`;
-        const qrUrl = `https://img.vietqr.io/image/${BANK.bin}-${BANK.acc}-compact2.png?amount=${amountClean}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.name)}`;
+        currentQR = `https://img.vietqr.io/image/${BANK.bin}-${BANK.acc}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.name)}`;
 
         document.getElementById('result-section').style.display = 'block';
-        document.getElementById('qr-container').innerHTML = `<img src="${qrUrl}" crossorigin="anonymous">`;
-        document.getElementById('download-link').href = qrUrl;
+        document.getElementById('qr-container').innerHTML = `<img src="${currentQR}" id="qr-image" crossorigin="anonymous">`;
         document.getElementById('final-note').innerHTML = `Nội dung: ${note}`;
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
