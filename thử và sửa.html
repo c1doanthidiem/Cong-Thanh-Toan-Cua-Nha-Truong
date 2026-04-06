@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Thanh toán - Trường Tiểu học Đoàn Thị Điểm - Hà Nội</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0b6fb3;
+            --accent: #ff9800;
+            --bg: #f4f7fa;
+            --text: #2d3748;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { margin: 0; background: var(--bg); display: flex; justify-content: center; padding: 20px; color: var(--text); }
+        
+        .container { width: 100%; max-width: 480px; animation: fadeIn 0.6s ease; }
+
+        .card { 
+            background: #fff; padding: 30px; border-radius: 28px; 
+            box-shadow: 0 15px 45px rgba(11, 111, 179, 0.15); 
+            border: 2px solid #ffffff;
+        }
+
+        /* Tiêu đề xinh xắn */
+        .header { text-align: center; margin-bottom: 25px; position: relative; }
+        .school-icon { 
+            background: var(--primary); color: white; width: 60px; height: 60px; 
+            border-radius: 18px; display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 15px; font-size: 28px; box-shadow: 0 8px 20px rgba(11, 111, 179, 0.3);
+        }
+        h2 { color: var(--primary); font-size: 1.1rem; margin: 10px 0; text-transform: uppercase; font-weight: 3000; letter-spacing: 0.5px; }
+        .sub-text { font-size: 15px; color: #718096; }
+
+        /* Form nhập liệu */
+        .form-group { margin-bottom: 20px; text-align: left; }
+        label { 
+            display: flex; align-items: center; gap: 8px; font-size: 13px; 
+            font-weight: 700; margin-bottom: 8px; color: #4a5568; text-transform: uppercase;
+        }
+        label i { color: var(--primary); font-size: 14px; }
+
+        input, select {
+            width: 100%; padding: 15px; border: 2px solid #edf2f7; border-radius: 16px;
+            font-size: 16px; outline: none; transition: 0.3s; background: #f8fafc;
+        }
+        input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(11, 111, 179, 0.1); }
+
+        /* Gợi ý số tiền */
+        .suggestion-box { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; min-height: 35px; }
+        .sug-pill {
+            background: #fff; color: var(--primary); padding: 7px 15px; border-radius: 20px;
+            font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
+            border: 1.5px solid var(--primary);
+        }
+        .sug-pill:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+
+        /* Nút chính */
+        .btn-main {
+            width: 100%; background: var(--primary); color: white; padding: 18px; border: none;
+            border-radius: 20px; font-size: 17px; font-weight: 800; cursor: pointer;
+            margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 25px rgba(11, 111, 179, 0.3); transition: 0.3s;
+        }
+        .btn-main:hover { background: #085a91; transform: translateY(-2px); }
+
+        /* Kết quả */
+        #result-section { display: none; margin-top: 30px; text-align: center; animation: slideUp 0.5s ease; }
+        .qr-wrapper { 
+            background: #fff; padding: 20px; border-radius: 25px; 
+            border: 3px solid #f1f5f9; display: inline-block; position: relative;
+        }
+        .qr-wrapper img { width: 100%; max-width: 260px; height: auto; border-radius: 15px; display: block; margin: 0 auto; }
+
+.button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* Nút Thanh toán ngay */
+        .btn-pay-now {
+            background: var(--primary);
+            color: white;
+            padding: 14px 5px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.3s;
+            border: none;
+        }
+
+        /* Nút Tải mã QR */
+        .btn-download {
+            background: #fff;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 14px 5px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-pay-now:hover, .btn-download:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @media (max-width: 480px) { .card { padding: 20px; } }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="header">
+	<div style="width: 80px; height: 80px; margin: 0 auto 15px; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+   	 <img src="logo.jpg.jpg" alt="Logo School" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <h2>Trường Tiểu học Đoàn Thị Điểm - Hà Nội</h2>
+            <div class="sub-text">Cổng Thanh Toán Tiện Lợi Dành Cho Phụ Huynh</div>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fa-solid fa-child-reaching"></i> Họ và tên học sinh</label>
+            <input id="fullname" type="text" placeholder="Ví dụ: Nguyễn Văn A" oninput="formatName(this)">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label><i class="fa-solid fa-school-flag"></i> Lớp</label>
+                <input id="class" type="text" placeholder="1A1" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div class="form-group">
+                <label><i class="fa-solid fa-list-check"></i> Loại phí</label>
+                <select id="category">
+                    <option value="Hoc phi">Học phí</option>
+                    <option value="Dong phuc">Đồng phục</option>
+                    <option value="Xe tuyen">Xe tuyến</option>
+                    <option value="Khac">Khác</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fa-solid fa-coins"></i> Số tiền đóng (VNĐ)</label>
+            <input id="amount" type="text" placeholder="Gõ số tiền..." oninput="handleAmountInput(this)">
+            <div id="suggestions" class="suggestion-box"></div>
+        </div>
+
+        <button class="btn-main" onclick="generateQR()">
+            TẠO MÃ THANH TOÁN <i class="fa-solid fa-magic"></i>
+        </button>
+
+        <div id="result-section">
+            <div class="qr-wrapper" id="qr-container">
+                </div>
+
+            <a id="bank-link" href="#" class="btn-pay-now">
+                <i class="fa-solid fa-mobile-screen-button"></i> THANH TOÁN NGAY QUA APP
+            </a>
+            
+            <a id="download-link" href="#" target="_blank" class="btn-download">
+                <i class="fa-solid fa-cloud-arrow-down"></i> Tải mã QR về máy
+            </a>
+
+            <div style="margin-top:15px; padding: 15px; background: #fdf2f2; border-radius: 12px; text-align: left;">
+                <p id="final-note" style="margin:0; font-size: 14px; font-weight: 800; color: #c53030;"></p>
+                <p style="margin:5px 0 0; font-size: 12px; color: #718096;">* Phụ huynh vui lòng giữ nguyên nội dung chuyển khoản trên.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const BANK = { 
+        bin: "970418", // BIDV
+        acc: "2200263666", 
+        name: "Truong Tieu hoc Doan Thi Diem" 
+    };
+
+    function formatName(el) {
+        let val = el.value.replace(/[^A-Za-zÀ-ỹ\s]/g,'').toLowerCase();
+        el.value = val.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+
+    function handleAmountInput(el) {
+        let rawVal = el.value.replace(/[^0-9]/g, '');
+        // Hiển thị định dạng có dấu phẩy cho phụ huynh dễ nhìn
+        el.value = rawVal.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        
+        const sugBox = document.getElementById('suggestions');
+        sugBox.innerHTML = '';
+        
+        if (rawVal.length > 0) {
+            [1000, 10000, 100000].forEach(m => {
+                let val = parseInt(rawVal) * m;
+                if (val <= 100000000) { // Giới hạn 100 triệu
+                    const pill = document.createElement('div');
+                    pill.className = 'sug-pill';
+                    pill.innerText = val.toLocaleString('vi-VN');
+                    pill.onclick = () => { 
+                        document.getElementById('amount').value = val.toLocaleString('vi-VN'); 
+                        sugBox.innerHTML = ''; 
+                    };
+                    sugBox.appendChild(pill);
+                }
+            });
+        }
+    }
+
+    function generateQR() {
+        const name = document.getElementById('fullname').value.trim();
+        const lop = document.getElementById('class').value.trim();
+        
+        // LẤY SỐ TIỀN: Xóa sạch dấu phẩy và dấu chấm trước khi gửi lên API
+        let amountStr = document.getElementById('amount').value;
+        let amountClean = amountStr.replace(/[,.]/g, ''); 
+
+        if(!name || !lop || !amountClean || amountClean === "0") {
+            alert("Bố mẹ ơi, vui lòng nhập đầy đủ tên con, lớp và số tiền chính xác ạ! ❤️"); 
+            return;
+        }
+
+        // Tạo nội dung không dấu
+        let cleanName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/Đ/g, "D").toUpperCase();
+        const note = `MD ${cleanName} ${lop.toUpperCase()}`;
+        
+        // API VietQR - Sử dụng amountClean (chỉ có số)
+        const qrUrl = `https://img.vietqr.io/image/${BANK.bin}-${BANK.acc}-compact2.png?amount=${amountClean}&addInfo=${encodeURIComponent(note)}&accountName=${encodeURIComponent(BANK.name)}`;
+        const deepLink = `https://qr.sepay.vn/dl?acc=${BANK.acc}&bank=${BANK.bin}&amount=${amountClean}&des=${encodeURIComponent(note)}`;
+
+        const resultSection = document.getElementById('result-section');
+        const qrContainer = document.getElementById('qr-container');
+        
+        resultSection.style.display = 'block';
+        qrContainer.innerHTML = '<div style="padding:40px;"><i class="fa-solid fa-circle-notch fa-spin" style="font-size:30px; color:var(--primary)"></i><p>Đang tạo mã QR...</p></div>';
+        
+        const img = new Image();
+        img.onload = () => { 
+            qrContainer.innerHTML = ''; 
+            qrContainer.appendChild(img); 
+        };
+        img.onerror = () => {
+            qrContainer.innerHTML = '<p style="color:red">Lỗi tải mã QR. Bố mẹ vui lòng bấm nút tạo lại nhé!</p>';
+        };
+        img.src = qrUrl;
+
+        document.getElementById('bank-link').href = deepLink;
+        document.getElementById('download-link').href = qrUrl;
+        document.getElementById('final-note').innerHTML = `<i class="fa-solid fa-pen-clip"></i> Nội dung: ${note}`;
+
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
